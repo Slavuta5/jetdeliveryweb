@@ -31,6 +31,29 @@
 
   <title>delivery_app</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- 1. ПІДКЛЮЧЕННЯ TELEGRAM WEB APP SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
+  <!-- 2. БЛОКУВАННЯ ВИПАДКОВОГО ЗАКРИТТЯ СВАЙПОМ -->
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        
+        // Розгортає додаток на весь екран
+        tg.expand(); 
+        
+        // Надійно забороняє закриття додатка свайпом вниз
+        if (tg.disableVerticalSwipes) {
+            tg.disableVerticalSwipes();
+        } else if (tg.isVerticalSwipesEnabled !== undefined) {
+            tg.isVerticalSwipesEnabled = false;
+        }
+      }
+    });
+  </script>
 </head>
 <body>
   <!--
